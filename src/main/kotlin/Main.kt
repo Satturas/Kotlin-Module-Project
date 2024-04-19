@@ -100,7 +100,6 @@ fun checkingInput(size: Int): Int {
                 showMenu()
                 readln()
             }
-
             else -> return input.toInt()
         }
     }
