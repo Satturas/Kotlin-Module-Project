@@ -7,6 +7,7 @@ class App {
             mainMenu.printMainMenu(zips)
             val maxMenuNumber = if (zips.isEmpty()) 1 else zips.size + 1
             when (val madeChoice = mainMenu.makeChoice(maxMenuNumber)) {
+                -1 -> continue
                 0 -> makeZip()
                 maxMenuNumber -> return
                 else -> zips[madeChoice - 1]?.let { zipMenu(madeChoice - 1, it) }
@@ -27,6 +28,7 @@ class App {
             zips[choice]?.let { zipMenu.printZipMenu(it) }
             val maxMenuNumber = if (zip.contents.isEmpty()) 1 else zip.contents.size + 1
             when (val madeChoice = zipMenu.makeChoice(maxMenuNumber)) {
+                -1 -> continue
                 0 -> makeMessage(zip)
                 maxMenuNumber -> return
                 else -> messageMenu(zip, madeChoice)
@@ -48,6 +50,7 @@ class App {
             val messageMenu = Menu()
             messageMenu.printMessageMenu()
             when (messageMenu.makeChoice(1)) {
+                -1 -> continue
                 0 -> openMessage(arch, choice)
                 1 -> break
             }
@@ -55,13 +58,14 @@ class App {
     }
 
     private fun openMessage(arch: Zip, choice: Int) {
+        while (true) {
         println("\nНазвание заметки: ${arch.contents[choice]}")
         println("Текст заметки: ${arch.note[choice].content}")
         println("0. Возврат в меню заметки")
         val openMessage = Menu()
-        while (true) {
-            if (openMessage.makeChoice(0) == 0) {
-                break
+            when (openMessage.makeChoice(0)) {
+                -1 -> continue
+                0 -> break
             }
         }
     }

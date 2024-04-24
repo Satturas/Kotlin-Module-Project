@@ -32,12 +32,7 @@ class Menu {
     fun makeChoice(maxMenuNumber: Int): Int {
         while (true) {
             val checkedChoice = InputCheck.menuChoiceCheck(readln(), maxMenuNumber)
-            if (checkedChoice == -1) {
-                continue
-            } else {
-                return checkedChoice
-            }
+            return checkedChoice
         }
     }
-
 }
