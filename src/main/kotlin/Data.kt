@@ -1,9 +1,10 @@
-data class Zip (
+data class Zip(
     val name: String,
     val contents: MutableMap<Int, String>,
-    val note: ArrayList<Message>)
+    val note: MutableList<Message>
+)
 
 data class Message(
     val name: String,
-    val content: String) {
-}
+    val content: String
+)
