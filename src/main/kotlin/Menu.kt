@@ -1,9 +1,9 @@
 object Menu {
 
-    fun printMainMenu(zips: Map<Int, Zip>) {
+    fun printMainMenu(zips: MutableList<Zip>) {
         println("\nСписок архивов:\n0. Создать архив")
-        for (i in zips) {
-            println("${i.key + 1}. ${i.value.name}")
+        for (i in zips.indices) {
+            println("${i + 1}. ${zips[i].name}")
         }
         println("${zips.size + 1}. Выход ")
     }
