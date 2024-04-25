@@ -1,5 +1,5 @@
 object App {
-    private val zips = mutableMapOf<Int, Zip>()
+    private val zips = mutableListOf<Zip>()
 
     fun start() {
         while (true) {
@@ -8,7 +8,7 @@ object App {
                 -1 -> continue
                 0 -> makeZip()
                 zips.size + 1 -> return
-                else -> zips[madeChoice - 1]?.let { zipMenu(madeChoice - 1, it) }
+                else -> zipMenu(madeChoice - 1, zips[madeChoice - 1])
             }
         }
     }
@@ -20,13 +20,13 @@ object App {
             mutableMapOf(),
             arrayListOf(Message("", ""))
         )
-        zips[zips.size] = newZip
+        zips.add(newZip)
     }
 
     private fun zipMenu(choice: Int, zip: Zip) {
         while (true) {
-            println("\nАрхив \"${zips[choice]!!.name}\"")
-            zips[choice]?.let { Menu.printZipMenu(it) }
+            println("\nАрхив \"${zips[choice].name}\"")
+            zips[choice].let { Menu.printZipMenu(it) }
             when (val madeChoice = Menu.makeChoice(zip.contents.size + 1)) {
                 -1 -> continue
                 0 -> makeMessage(zip)
@@ -36,30 +36,30 @@ object App {
         }
     }
 
-    private fun makeMessage(arch: Zip) {
+    private fun makeMessage(zip: Zip) {
         println("\nВведите название заметки:")
         val messageName = InputCheck.checkingText("Название заметки")
-        arch.contents[arch.contents.size + 1] = messageName
+        zip.contents[zip.contents.size + 1] = messageName
         println("\nВведите текст заметки:")
-        arch.note.add(Message(messageName, InputCheck.checkingText("Текст заметки")))
+        zip.note.add(Message(messageName, InputCheck.checkingText("Текст заметки")))
     }
 
-    private fun messageMenu(arch: Zip, choice: Int) {
+    private fun messageMenu(zip: Zip, choice: Int) {
         while (true) {
-            println("\nНазвание заметки: ${arch.contents[choice]}")
+            println("\nНазвание заметки: ${zip.contents[choice]}")
             Menu.printMessageMenu()
             when (Menu.makeChoice(1)) {
                 -1 -> continue
-                0 -> openMessage(arch, choice)
+                0 -> openMessage(zip, choice)
                 1 -> break
             }
         }
     }
 
-    private fun openMessage(arch: Zip, choice: Int) {
+    private fun openMessage(zip: Zip, choice: Int) {
         while (true) {
-            println("\nНазвание заметки: ${arch.contents[choice]}")
-            println("Текст заметки: ${arch.note[choice].content}")
+            println("\nНазвание заметки: ${zip.contents[choice]}")
+            println("Текст заметки: ${zip.note[choice].content}")
             println("0. Возврат в меню заметки")
             when (Menu.makeChoice(0)) {
                 -1 -> continue
