@@ -16,12 +16,11 @@ object InputCheck {
     }
 
     fun checkingText(category: String): String {
-        var input = readln()
         while (true) {
+            val input = readln()
             if (input.isBlank()) {
                 println("\n$category не может быть пустым!")
                 println("Введите ${category.lowercase()}:")
-                input = readln()
             } else {
                 return input
             }

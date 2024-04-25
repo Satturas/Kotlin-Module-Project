@@ -8,7 +8,7 @@ object App {
                 -1 -> continue
                 0 -> makeZip()
                 zips.size + 1 -> return
-                else -> zipMenu(madeChoice - 1, zips[madeChoice - 1])
+                else -> zipMenu(zips[madeChoice - 1])
             }
         }
     }
@@ -23,10 +23,10 @@ object App {
         zips.add(newZip)
     }
 
-    private fun zipMenu(choice: Int, zip: Zip) {
+    private fun zipMenu(zip: Zip) {
         while (true) {
-            println("\nАрхив \"${zips[choice].name}\"")
-            zips[choice].let { Menu.printZipMenu(it) }
+            println("\nАрхив \"${zip.name}\"")
+            zip.let { Menu.printZipMenu(it) }
             when (val madeChoice = Menu.makeChoice(zip.contents.size + 1)) {
                 -1 -> continue
                 0 -> makeMessage(zip)
