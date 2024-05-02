@@ -1,3 +1,5 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
+    println("\nДобро пожаловать в приложение \"Заметки\"!")
+    App.start()
+    println("До свидания!")
 }
